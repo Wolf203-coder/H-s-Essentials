@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Contact - Clean Company{% endblock %}
+{% block content %}
+<h2>Contactez-nous</h2>
+{% if success %}
+  <div class="notice success">Merci ! Nous avons bien reçu votre message.</div>
+{% endif %}
+<form action="/contact" method="post" class="form">
+  <label>Nom complet<input name="name" required /></label>
+  <label>Email<input name="email" type="email" required /></label>
+  <label>Téléphone<input name="phone" /></label>
+  <label>Message<textarea name="message" rows="5" required></textarea></label>
+  <div class="form-actions">
+    <button class="btn" type="submit">Envoyer</button>
+    <a class="btn wa outline" href="https://wa.me/{{ wa_number }}?text=Bonjour%2C%20je%20souhaite%20contacter%20votre%20entreprise" target="_blank">Envoyer via WhatsApp</a>
+  </div>
+</form>
+{% endblock %}

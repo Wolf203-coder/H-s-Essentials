@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+Jinja2
+sqlalchemy
+python-multipart
+email-validator
+pymysql

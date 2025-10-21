@@ -1,0 +1,69 @@
+<!-- templates/base.html -->
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{% block title %}H'S Essentials{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+
+
+
+
+<body>
+ <header class="site-header">
+  <div class="container">
+    <a href="/" class="brand">
+      <img src="/static/images/logo.jpg" class="logo" alt="Logo">
+      H's Essentials
+    </a>
+
+    <!-- Hamburger button -->
+    <button class="hamburger" id="hamburger">&#9776;</button>
+
+    <nav id="nav-links">
+      <a href="/">Accueil</a>
+      <a href="/services">Services</a>
+      <a href="/about">À propos</a>
+      <a href="/quote">Demander un devis</a>
+      <a href="/contact">Contact</a>
+      <a href="/devis">Devis demandés</a>
+      <a href="/mesdevis">Mes devis</a>
+      <!-- Boutons réseaux sociaux -->
+      <a class="wa-btn" href="https://www.instagram.com/essentialshs/" target="_blank">Instagram</a>
+      <a class="wa-btn" href="https://www.tiktok.com/@hs.essentials1" target="_blank">TikTok</a>
+      <a class="wa-btn" href="https://wa.me/{{ wa_number }}?text=Bonjour%20H's%20Essentials" target="_blank">WhatsApp</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const hamburger = document.getElementById("hamburger");
+  const nav = document.getElementById("nav-links");
+
+  hamburger.addEventListener("click", () => {
+    nav.classList.toggle("show");
+  });
+</script>
+
+
+
+  
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+     <p>© {{ current_year }} H's Essentials — Nettoyage professionnel</p>
+
+      <p>Contact WhatsApp : <a href="https://wa.me/{{ wa_number }}" target="_blank">{{ wa_number }}</a></p>
+    </div>
+  </footer>
+
+  
+
+</body>
+</html>

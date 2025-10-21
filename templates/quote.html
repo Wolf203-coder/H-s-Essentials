@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Devis - Clean Company{% endblock %}
+{% block content %}
+<h2>Demander un devis</h2>
+{% if success %}
+  <div class="notice success">Merci ! Votre demande de devis a bien été reçue. Nous vous contacterons bientôt.</div>
+{% endif %}
+<form action="/quote" method="post" class="form">
+  <label>Nom complet<input name="name" required /></label>
+  <label>Email<input name="email" type="email" required /></label>
+  <label>Téléphone<input name="phone" /></label>
+  <label>Service désiré
+    <select name="service" required>
+      <option value="Nettoyage bureaux">Nettoyage bureaux</option>
+      <option value="Nettoyage résidentiel">Nettoyage résidentiel</option>
+      <option value="Nettoyage industriel">Nettoyage industriel</option>
+      <option value="Vitres & façades">Vitres & façades</option>
+    </select>
+  </label>
+  <label>Détails<textarea name="details" rows="5"></textarea></label>
+  <div class="form-actions">
+    <button class="btn" type="submit">Envoyer la demande</button>
+    <a class="btn wa outline" href="https://wa.me/{{ wa_number }}?text=Bonjour%2C%20je%20souhaite%20un%20devis%20pour%20{{ service|default('...') }}" target="_blank">Demander via WhatsApp</a>
+  </div>
+</form>
+{% endblock %}

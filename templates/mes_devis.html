@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mes devis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+            color: #2d3436;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #0984e3;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        h1 { margin: 0; }
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #dfe6e9;
+            text-align: left;
+        }
+        th {
+            background: #74b9ff;
+            color: white;
+        }
+        tr:hover { background: #f1f2f6; }
+        .btn-whatsapp {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn-whatsapp:hover { background: #20b954; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>📋 Mes devis</h1>
+</header>
+
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Service</th>
+                <th>Détails</th>
+                <th>Date</th>
+                <th>Contact</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if devis %}
+                {% for d in devis %}
+                <tr>
+                    <td>{{ d.name }}</td>
+                    <td>{{ d.email }}</td>
+                    <td>{{ d.phone }}</td>
+                    <td>{{ d.service }}</td>
+                    <td>{{ d.details }}</td>
+                    <td>{{ d.created_at.strftime("%d/%m/%Y") if d.created_at else "" }}</td>
+                    <td>
+                        <a class="btn-whatsapp" href="https://wa.me/243978911409?text=Bonjour%20{{ d.name }}%2C%20concernant%20votre%20demande%20de%20devis..." target="_blank">
+                            WhatsApp
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="7" style="text-align:center;">Aucun devis trouvé</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
