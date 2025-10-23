@@ -1,7 +1,7 @@
 fastapi
-uvicorn[standard]
-Jinja2
+uvicorn
 sqlalchemy
-python-multipart
-email-validator
 pymysql
+jinja2
+python-multipart
+itsdangerous
