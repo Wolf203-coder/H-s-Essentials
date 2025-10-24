@@ -41,12 +41,6 @@ WHATSAPP_NUMBER = "243978911409"
 
 @app.get("/", response_class=HTMLResponse)
 def index_redirect(request: Request):
-    user_id = request.session.get("user")
-    if not user_id:
-        # aucun user connecté → redirige vers login utilisateur
-        return RedirectResponse(url="/", status_code=303)
-    
-    # si l'utilisateur est connecté, afficher la page index normale
     return templates.TemplateResponse(
         "index.html",
         {
@@ -55,6 +49,7 @@ def index_redirect(request: Request):
             "year": datetime.now().year
         }
     )
+
 
 
 
