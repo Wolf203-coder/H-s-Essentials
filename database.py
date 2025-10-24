@@ -1,24 +1,26 @@
-# database.py
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-MYSQL_USER = "root"
-MYSQL_PASSWORD = ""  
-MYSQL_HOST = "localhost"
-MYSQL_PORT = "3306"
-MYSQL_DB = "clean_company"
+# Récupère la variable d'environnement DATABASE_URL
+database_url = os.getenv("DATABASE_URL")
 
-SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DB}"
+if not database_url:
+    raise ValueError("DATABASE_URL is not set. Check your Render environment variables.")
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL, echo=True, future=True)
+# Corrige le format Render si besoin (Render donne souvent postgres:// au lieu de postgresql+psycopg2://)
+if database_url.startswith("postgres://"):
+    database_url = database_url.replace("postgres://", "postgresql+psycopg2://", 1)
+
+# Crée le moteur SQLAlchemy
+engine = create_engine(database_url, echo=True)
+
+# Crée la session locale
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# Base pour déclarer les modèles
 Base = declarative_base()
 
-def init_db(drop_all=False):
-    """Initialise la base. Si drop_all=True, toutes les tables sont supprimées avant d’être recréées."""
-    import models  # importe les modèles avant création
-    if drop_all:
-        print("⚠️ Suppression de toutes les tables existantes...")
-        Base.metadata.drop_all(bind=engine)
+# Fonction pour créer les tables
+def init_db():
     Base.metadata.create_all(bind=engine)
-    print("✅ Tables créées avec succès !")
