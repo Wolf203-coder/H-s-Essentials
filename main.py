@@ -44,7 +44,7 @@ def index_redirect(request: Request):
     user_id = request.session.get("user")
     if not user_id:
         # aucun user connecté → redirige vers login utilisateur
-        return RedirectResponse(url="/user-login", status_code=303)
+        return RedirectResponse(url="/", status_code=303)
     
     # si l'utilisateur est connecté, afficher la page index normale
     return templates.TemplateResponse(
